@@ -145,7 +145,7 @@
             font-size: 1rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            font-weight: 500;
+            font-weight: 400;
             transition: all 0.3s ease;
             border-radius: 40px;
             box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
@@ -174,7 +174,7 @@
             transform: rotate(5deg) scale(1.1);
         }
 
-        /* HEADER – COM LOGO PERSONALIZADO */
+        /* HEADER – COM EFEITO DE ESCONDER AO ROLAR */
         header {
             background: rgba(10, 35, 66, 0.95);
             backdrop-filter: blur(12px);
@@ -185,13 +185,19 @@
             justify-content: space-between;
             flex-wrap: wrap;
             border-bottom: 1px solid var(--ouro-palido);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.4);
+            left: 0;
             width: 100%;
+            z-index: 1000;
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.4);
             gap: 0.8rem 1.5rem;
-            transition: padding 0.3s ease, background 0.3s ease;
+            transition: transform 0.3s ease, background 0.3s ease, padding 0.3s ease;
+            transform: translateY(0);
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
         }
 
         header:hover {
@@ -230,12 +236,6 @@
             color: var(--creme);
         }
 
-        .logo-palacio .linha2 span {
-            color: var(--ouro);
-            font-weight: 400;
-            margin-left: 4px;
-        }
-
         /* IMAGEM DA LOGO (logo.png) */
         .logo-imagem {
             display: flex;
@@ -244,7 +244,7 @@
         }
 
         .logo-imagem img {
-            height: 150px;
+            height: 70px;
             width: 300px;
             max-width: 300px;
             object-fit: contain;
@@ -257,7 +257,156 @@
             filter: drop-shadow(0 4px 8px rgba(184,138,75,0.6));
         }
 
-        /* RESPONSIVIDADE DO LOGO E IMAGEM */
+        /* CONTAINER DOS BOTÕES DO HEADER (LINKS + WHATSAPP) */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+            font-weight: 300;
+            position: relative;
+            white-space: nowrap;
+            text-decoration: none;
+            color: var(--creme);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--ouro);
+            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-decoration: none;
+        }
+
+        /* MENU HAMBÚRGUER (visível apenas em mobile) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--ouro);
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* MENU MOBILE */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 35, 66, 0.98);
+            backdrop-filter: blur(12px);
+            padding: 100px 2rem 2rem;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            border-left: 2px solid var(--ouro);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-links-mobile {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-menu .nav-links-mobile a {
+            color: var(--creme);
+            text-decoration: none;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(184,138,75,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu .nav-links-mobile a:hover {
+            color: var(--ouro);
+            padding-left: 10px;
+            border-bottom-color: var(--ouro);
+        }
+
+        .mobile-menu .btn-whatsapp-mobile {
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        /* OVERLAY PARA O MENU MOBILE */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(3px);
+            z-index: 998;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* RESPONSIVIDADE */
         @media (max-width: 1000px) {
             .logo-palacio .linha1 {
                 font-size: 1.5rem;
@@ -269,6 +418,22 @@
             }
             .logo-imagem img {
                 height: 60px;
+            }
+            .nav-links { gap: 1.2rem; font-size: 1rem; }
+            .btn-whatsapp { padding: 0.6rem 1.5rem; font-size: 0.9rem; }
+        }
+
+        @media (max-width: 800px) {
+            .nav-links, .header-actions .btn-whatsapp {
+                display: none; /* Esconde menu desktop e whatsapp */
+            }
+            
+            .hamburger {
+                display: flex;
+            }
+            
+            header {
+                padding: 0.8rem 5%;
             }
         }
 
@@ -325,76 +490,7 @@
             }
         }
 
-        /* CONTAINER DOS BOTÕES DO HEADER (LINKS + WHATSAPP) */
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            padding: 0.5rem 0;
-            border-bottom: 2px solid transparent;
-            transition: 0.3s;
-            font-weight: 300;
-            position: relative;
-            white-space: nowrap;
-            text-decoration: none;
-            color: var(--creme);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--ouro);
-            transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            transform: translateY(-2px);
-            text-decoration: none;
-        }
-
-        /* RESPONSIVIDADE DO HEADER */
-        @media (max-width: 1000px) {
-            .nav-links { gap: 1.2rem; font-size: 1rem; }
-            .btn-whatsapp { padding: 0.6rem 1.5rem; font-size: 0.9rem; }
-        }
-        @media (max-width: 800px) {
-            header { flex-direction: column; align-items: stretch; padding: 0.8rem 4%; }
-            .logo-area { justify-content: center; }
-            .header-actions { 
-                justify-content: center; 
-                gap: 1rem;
-                width: 100%;
-            }
-            .nav-links { justify-content: center; }
-        }
-        @media (max-width: 500px) {
-            .nav-links a { font-size: 0.85rem; }
-            .btn-whatsapp { padding: 0.5rem 1.2rem; font-size: 0.8rem; }
-        }
-
-        /* ===== HERO COM RESPONSIVIDADE APERFEIÇOADA ===== */
+        /* HERO - ajuste para header fixo */
         .hero {
             min-height: 90vh;
             background: linear-gradient(127deg, #0a2342 0%, #1f3f5c 70%), 
@@ -408,6 +504,13 @@
             padding: 0 5%;
             position: relative;
             animation: heroFadeIn 1.8s ease-out;
+            margin-top: 80px; /* Espaço para o header fixo */
+        }
+
+        @media (max-width: 800px) {
+            .hero {
+                margin-top: 70px;
+            }
         }
 
         @keyframes heroFadeIn {
@@ -1298,7 +1401,7 @@
 </head>
 <body>
 
-    <header>
+    <header id="main-header">
         <div class="logo-area">
             <!-- LOGO PRINCIPAL (TEXTO) -->
             <div class="logo-palacio">
@@ -1321,12 +1424,36 @@
                 <a href="#depoimentos">Opiniões</a>
             </nav>
             
-            <!-- BOTÃO WHATSAPP PARA RESERVAS -->
+            <!-- BOTÃO WHATSAPP PARA RESERVAS (DESKTOP) -->
             <a href="https://wa.me/552134567890?text=Olá!%20Gostaria%20de%20fazer%20uma%20reserva%20no%20Palácio%20das%20Ondas." target="_blank" class="btn-whatsapp">
                 <i>📱</i> Reserve via WhatsApp
             </a>
+
+            <!-- MENU HAMBÚRGUER (MOBILE) -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </header>
+
+    <!-- MENU MOBILE -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="nav-links-mobile">
+            <a href="#sobre" onclick="fecharMenu()">Hotel</a>
+            <a href="#acomodacoes" onclick="fecharMenu()">Acomodações</a>
+            <a href="#servicos" onclick="fecharMenu()">Serviços</a>
+            <a href="#local" onclick="fecharMenu()">Localização</a>
+            <a href="#depoimentos" onclick="fecharMenu()">Opiniões</a>
+        </div>
+        <a href="https://wa.me/552134567890?text=Olá!%20Gostaria%20de%20fazer%20uma%20reserva%20no%20Palácio%20das%20Ondas." target="_blank" class="btn-whatsapp btn-whatsapp-mobile" onclick="fecharMenu()">
+            <i>📱</i> Reserve via WhatsApp
+        </a>
+    </div>
+
+    <!-- OVERLAY DO MENU -->
+    <div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
 
     <!-- HERO PERFEITO COM RESPONSIVIDADE APERFEIÇOADA -->
     <section class="hero" id="home">
@@ -1529,8 +1656,9 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DO CARROSSEL -->
+    <!-- SCRIPT DO CARROSSEL E HEADER -->
     <script>
+        // CARROSSEL
         let slideAtual = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
@@ -1538,10 +1666,7 @@
         const indicadores = document.querySelectorAll('.indicador');
 
         function atualizarCarrossel() {
-            // Atualizar posição dos slides
             carrosselSlides.style.transform = `translateX(-${slideAtual * 100}%)`;
-            
-            // Atualizar indicadores
             indicadores.forEach((ind, index) => {
                 if (index === slideAtual) {
                     ind.classList.add('ativo');
@@ -1560,6 +1685,54 @@
             slideAtual = index;
             atualizarCarrossel();
         }
+
+        // HEADER ESCONDER AO ROLAR
+        const header = document.getElementById('main-header');
+        let lastScrollTop = 0;
+        let scrollThreshold = 50; // sensibilidade
+
+        window.addEventListener('scroll', function() {
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Se rolar mais que o threshold e estiver descendo
+            if (Math.abs(currentScroll - lastScrollTop) > scrollThreshold) {
+                if (currentScroll > lastScrollTop && currentScroll > 100) {
+                    // Descendo - esconder header
+                    header.classList.add('hidden');
+                } else {
+                    // Subindo - mostrar header
+                    header.classList.remove('hidden');
+                }
+                lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+            }
+        });
+
+        // MENU HAMBÚRGUER
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+
+        function toggleMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            menuOverlay.classList.toggle('active');
+            
+            // Impedir scroll do body quando menu aberto
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        function fecharMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
     </script>
 </body>
 </html>
