@@ -201,11 +201,11 @@
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 0.2rem 0.8rem;
+            gap: 0.8rem 1.5rem;
             flex-wrap: wrap;
         }
 
-        /* NOVO LOGO - PALACIÓ DAS ONDAS HOTELI */
+        /* LOGO PRINCIPAL (TEXTO) */
         .logo-palacio {
             display: flex;
             flex-direction: column;
@@ -213,7 +213,6 @@
             text-transform: uppercase;
             border-right: 2px solid var(--ouro);
             padding-right: 1rem;
-            margin-right: 0.5rem;
         }
 
         .logo-palacio .linha1 {
@@ -237,18 +236,28 @@
             margin-left: 4px;
         }
 
-        .logo-texto {
-            font-size: 1.8rem;
-            font-weight: 300;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-style: italic;
-            line-height: 1.2;
-            transition: letter-spacing 0.3s ease;
-            display: none; /* Escondido pois agora usamos o logo personalizado */
+        /* NOVA IMAGEM AO LADO DA LOGO */
+        .logo-imagem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* RESPONSIVIDADE DO LOGO */
+        .logo-imagem img {
+            height: 60px;
+            width: auto;
+            max-width: 200px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(184,138,75,0.3));
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .logo-imagem:hover img {
+            transform: scale(1.05);
+            filter: drop-shadow(0 4px 8px rgba(184,138,75,0.6));
+        }
+
+        /* RESPONSIVIDADE DO LOGO E IMAGEM */
         @media (max-width: 1000px) {
             .logo-palacio .linha1 {
                 font-size: 1.5rem;
@@ -257,6 +266,16 @@
             .logo-palacio .linha2 {
                 font-size: 1rem;
                 letter-spacing: 3px;
+            }
+            .logo-imagem img {
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .logo-area {
+                justify-content: center;
+                gap: 1rem;
             }
         }
 
@@ -268,6 +287,9 @@
             .logo-palacio .linha2 {
                 font-size: 0.9rem;
                 letter-spacing: 2px;
+            }
+            .logo-imagem img {
+                height: 45px;
             }
         }
 
@@ -282,6 +304,24 @@
             .logo-palacio .linha2 {
                 font-size: 0.8rem;
                 letter-spacing: 1px;
+            }
+            .logo-imagem img {
+                height: 40px;
+                max-width: 150px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .logo-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            .logo-palacio {
+                border-right: none;
+                border-bottom: 2px solid var(--ouro);
+                padding-right: 0;
+                padding-bottom: 0.5rem;
+                margin-bottom: 0.3rem;
             }
         }
 
@@ -1260,10 +1300,17 @@
 
     <header>
         <div class="logo-area">
-            <!-- NOVO LOGO: PALACIÓ DAS ONDAS HOTELI -->
+            <!-- LOGO PRINCIPAL (TEXTO) -->
             <div class="logo-palacio">
                 <div class="linha1">PALACIÓ DAS ONDAS</div>
-                <div class="linha2">HOTELI</div>
+                <div class="linha2">HOTEL L</div>
+            </div>
+            
+            <!-- NOVA IMAGEM AO LADO DA LOGO -->
+            <div class="logo-imagem">
+                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80'><rect width='200' height='80' fill='%230a2342' rx='10'/><text x='20' y='48' font-family='Cormorant Garamond' font-size='28' font-weight='500' fill='%23b88a4b' letter-spacing='2'>PALACIÓ DAS ONDAS</text><text x='20' y='70' font-family='Cormorant Garamond' font-size='20' font-weight='300' fill='%23f9f3e9' letter-spacing='4'>HOTEL L</text><circle cx='170' cy='40' r='20' fill='%23b88a4b' opacity='0.2'/><path d='M165 35 L175 45 L165 55' stroke='%23b88a4b' stroke-width='3' fill='none'/></svg>" 
+                     alt="Palació das Ondas Hotel L"
+                     title="Palació das Ondas Hotel L">
             </div>
         </div>
         
@@ -1444,9 +1491,15 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <div class="logo-palacio" style="border-right: none; padding-right: 0; margin-bottom: 1rem;">
-                    <div class="linha1" style="font-size: 1.5rem;">PALACIÓ DAS ONDAS</div>
-                    <div class="linha2" style="font-size: 1rem;">HOTELI</div>
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                    <div class="logo-palacio" style="border-right: none; padding-right: 0;">
+                        <div class="linha1" style="font-size: 1.5rem;">PALACIÓ DAS ONDAS</div>
+                        <div class="linha2" style="font-size: 1rem;">HOTEL L</div>
+                    </div>
+                    <div class="logo-imagem">
+                        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 60'><rect width='150' height='60' fill='%230a2342' rx='8'/><text x='15' y='35' font-family='Cormorant Garamond' font-size='18' font-weight='500' fill='%23b88a4b' letter-spacing='2'>PALACIÓ DAS ONDAS</text><text x='15' y='50' font-family='Cormorant Garamond' font-size='14' font-weight='300' fill='%23f9f3e9' letter-spacing='3'>HOTEL L</text><circle cx='120' cy='30' r='12' fill='%23b88a4b' opacity='0.2'/></svg>" 
+                             alt="Palació das Ondas" style="height: 50px;">
+                    </div>
                 </div>
                 <p>Tradição, mar e ouro desde 1965. Onde o luxo encontra a serenidade.</p>
             </div>
